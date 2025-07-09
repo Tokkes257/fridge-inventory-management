@@ -1,0 +1,1 @@
+# Shared Fridge Inventory Management
