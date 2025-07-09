@@ -10,7 +10,11 @@ export class UserView {
 
 	@Expose()
 	@IsString()
-	name: string;
+	firstName: string;
+
+	@Expose()
+	@IsString()
+	lastName: string;
 
 	@Expose()
 	@IsEmail()

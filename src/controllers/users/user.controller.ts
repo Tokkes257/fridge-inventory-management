@@ -41,7 +41,6 @@ export class UserController {
         return get(id);
     }
 
-    // TODO: doesnt work when not giving all fields
     @Patch(":id")
     @UseGuards(JwtAuthGuard)
     @ApiSecurity("x-auth")

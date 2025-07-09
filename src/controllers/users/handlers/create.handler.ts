@@ -11,7 +11,8 @@ export const create = async (body: UserBody): Promise<UserView> => {
 	// Add user to the DB
 	const user = await prisma.user.create({
 		data: {
-			name: body.name,
+			firstName: body.firstName,
+			lastName: body.lastName,
 			email: body.email,
 			password: hashedPassword,
 		},

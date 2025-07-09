@@ -2,7 +2,7 @@
 	"port": 3000,
 	"jwtSecret": "this is my secret",
 	"postgres": {
-		"db": "example",
+		"db": "fridge-management",
 		"host": "localhost",
 		"password": "root",
 		"port": 5432,

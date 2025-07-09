@@ -14,12 +14,14 @@ import { randomUUID } from "crypto";
 
 const userFixtures = [
 	{
-		name: "test1",
+		firstName: "first1",
+		lastName: "last1",
 		email: "test-user+1@panenco.com",
 		password: "password1",
 	},
 	{
-		name: "test2",
+		firstName: "first2",
+		lastName: "last2",
 		email: "test-user+2@panenco.com",
 		password: "password2",
 	},
@@ -52,7 +54,8 @@ describe("Handler tests", () => {
 					);
 					return prisma.user.create({
 						data: {
-							name: fixture.name,
+							firstName: fixture.firstName,
+							lastName: fixture.lastName,
 							email: fixture.email,
 							password: hashedPassword,
 						},
@@ -64,19 +67,22 @@ describe("Handler tests", () => {
         it("should get users", async () => {
             const res = await getList(undefined);
             expect(res.length).equal(2);
-            expect(res.some((x) => x.name === "test1")).true;
-            expect(res.some((x) => x.name === "test2")).true;
+            expect(res.some((x) => x.firstName === "first1")).true;
+            expect(res.some((x) => x.firstName === "first2")).true;
+            expect(res.some((x) => x.lastName === "last1")).true;
+            expect(res.some((x) => x.lastName === "last2")).true;
         });
 
         it("should search users", async () => {
-            const res = await getList("test1");
+            const res = await getList("first1");
             expect(res.length).equal(1);
-            expect(res.some((x) => x.name === "test1")).true;
+            expect(res.some((x) => x.firstName === "first1")).true;
         });
 
         it("should get user by id", async () => {
             const res = await get(users[1].id);
-            expect(res.name === "test2").true;
+            expect(res.firstName === "first2").true;
+            expect(res.lastName === "last2").true;
             expect(res.email === "test-user+2@panenco.com").true;
         });
 
@@ -93,13 +99,15 @@ describe("Handler tests", () => {
         it("should create user", async () => {
             const res = await create(
                 { 
-                    name: "John",
+                    firstName: "John",
+                    lastName: "Doe",
                     email: "john@john.com",
                     password: "I'mJohn"
                  } as User
             );
 
-            expect(res.name === "John");
+            expect(res.firstName === "John");
+            expect(res.lastName === "Doe");
             expect(res.email === "john@john.com");
         });
 
@@ -107,12 +115,13 @@ describe("Handler tests", () => {
             const res = await update(
                 users[1].id,
                 { 
-                    name: "Johnny"
+                    firstName: "Johnny"
                 } as User
             );
 
             expect(res.id === 1);
-            expect(res.name === "Johnny");
+            expect(res.firstName === "Johnny");
+            expect(res.lastName === "last2");
             expect(res.email === "test-user+2@panenco.com");
         });
 

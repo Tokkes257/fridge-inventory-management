@@ -3,7 +3,7 @@
 	"mochaExplorer.nodeArgv": ["-r", "ts-node/register"],
 	"mochaExplorer.env": {
 		"TS_NODE_PROJECT": "./tsconfig.json",
-		"DATABASE_URL": "postgresql://root:root@localhost:5432/example?schema=public"
+		"DATABASE_URL": "postgresql://root:root@localhost:5432/fridge-management?schema=public"
 	},
 	"testExplorer.mergeSuites": true,
 	"mochaExplorer.timeout": 200000,
