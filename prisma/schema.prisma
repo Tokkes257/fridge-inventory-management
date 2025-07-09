@@ -32,6 +32,7 @@ model Product {
   updatedAt   DateTime @updatedAt
 
   @@map("products")
+  @@unique([userId, ingredientId])
   ProductFridge  ProductFridge[]
 }
 
@@ -68,6 +69,7 @@ model Recipe {
   updatedAt   DateTime @updatedAt
 
   @@map("recipes")
+  @@unique([userId, name])
   RecipeIngredient RecipeIngredient[]
 }
 
