@@ -15,7 +15,8 @@ export const update = async (id: string, body: UserUpdateBody): Promise<UserView
 	}
 
 	const updateData: any = {};
-	if (body.name !== undefined) updateData.name = body.name;
+	if (body.firstName !== undefined) updateData.firstName = body.firstName;
+	if (body.lastName !== undefined) updateData.lastName = body.lastName;
 	if (body.email !== undefined) updateData.email = body.email;
 	if (body.password !== undefined) {
 		updateData.password = await bcrypt.hash(body.password, 10);

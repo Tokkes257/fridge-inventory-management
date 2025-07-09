@@ -7,7 +7,13 @@ export const getList = async (search?: string): Promise<UserView[]> => {
 		? {
             OR: [
                 {
-                    name: {
+                    firstName: {
+                        contains: search,
+                        mode: "insensitive" as const,
+                    },
+                },
+                {
+                    lastName: {
                         contains: search,
                         mode: "insensitive" as const,
                     },

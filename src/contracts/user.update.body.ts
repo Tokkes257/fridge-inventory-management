@@ -6,7 +6,12 @@ export class UserUpdateBody {
 	@Expose()
 	@IsOptional()
 	@IsString()
-	public name?: string;
+	public firstName?: string;
+
+	@Expose()
+	@IsOptional()
+	@IsString()
+	public lastName?: string;
 
 	@Expose()
 	@IsOptional()
