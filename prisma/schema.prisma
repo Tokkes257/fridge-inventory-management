@@ -9,11 +9,97 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
-  name      String
+  firstName String
+  lastName  String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+  Product Product[]
+  Recipe Recipe[]
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ingredientId String
+  ingredient  Ingredient @relation(fields: [ingredientId], references: [id])
+  size        Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("products")
+  ProductFridge  ProductFridge[]
+}
+
+model Ingredient {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  type        ProductType
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("ingredients")
+  Product         Product[]
+  RecipeIngredient RecipeIngredient[]
+}
+
+model Fridge {
+  id          String   @id @default(uuid())
+  location    Int
+  capacity    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("fridges")
+  ProductStorage ProductFridge[]
+}
+
+model Recipe {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("recipes")
+  RecipeIngredient RecipeIngredient[]
+}
+
+model RecipeIngredient {
+  id           String   @id @default(uuid())
+  recipeId     String
+  recipe       Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredientId String
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  quantity     Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("recipe_ingredients")
+  @@unique([recipeId, ingredientId])
+}
+
+model ProductFridge {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  fridgeId  String
+  fridge    Fridge   @relation(fields: [fridgeId], references: [id], onDelete: Cascade)
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("product_fridges")
+  @@unique([productId, fridgeId])
+}
+
+enum ProductType {
+  FOOD
+  DRINK
 }
