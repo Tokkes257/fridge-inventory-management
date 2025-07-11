@@ -1,9 +1,10 @@
 {
 	"mochaExplorer.files": "src/tests/**/*.test.ts",
-	"mochaExplorer.nodeArgv": ["-r", "ts-node/register"],
+	//"mochaExplorer.nodeArgv": ["-r", "ts-node/register"],
 	"mochaExplorer.env": {
 		"TS_NODE_PROJECT": "./tsconfig.json",
-		"DATABASE_URL": "postgresql://root:root@localhost:5432/fridge-management?schema=public"
+		"DATABASE_URL": "postgresql://root:root@localhost:5432/fridge-management?schema=public",
+		"NODE_OPTIONS": "--import=tsx"
 	},
 	"testExplorer.mergeSuites": true,
 	"mochaExplorer.timeout": 200000,
