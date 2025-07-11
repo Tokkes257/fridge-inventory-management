@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../../guards/jwt-auth.guard";
 import { ApiOperation, ApiParam, ApiResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
 
@@ -79,7 +79,7 @@ export class ProductController {
     @ApiResponse({ status: 200, description: "Products retrieved successfully" })
     async getAllProductsInLocationForUser(
         @Param("userId") userId: string,
-        @Param("locationId") locationId: number
+        @Param("locationId", ParseIntPipe) locationId: number
     ): Promise<ProductView[]> {
         return getProductsInFridge(userId, undefined, locationId);
     }
@@ -117,7 +117,7 @@ export class ProductController {
         await giftAllProductsInFridge(senderUserId, receiverUserId, fridgeId);
     }
 
-    @Patch("user/:senderUserId/gift/:receiverUserId")
+    @Patch("gift/:senderUserId/:receiverUserId")
     @UseGuards(JwtAuthGuard)
     @ApiSecurity("x-auth")
     @ApiOperation({ summary: "Gift all products from one user to another" })

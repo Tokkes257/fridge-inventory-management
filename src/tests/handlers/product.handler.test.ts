@@ -607,7 +607,8 @@ describe("Product handler tests", () => {
 
 
             const products = await getProductsInFridge(userId, fridgeId);
-            
+
+            products.sort((a, b) => a.name.localeCompare(b.name));
             expect(products.length).equal(2);
             expect(products[0]).include(
                 {
