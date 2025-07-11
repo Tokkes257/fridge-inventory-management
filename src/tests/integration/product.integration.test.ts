@@ -6,7 +6,7 @@ import request from "supertest";
 
 import { AppModule } from "../../app.module";
 import { prisma } from "../../lib/prisma";
-import { ProductType, User } from "@prisma/client";
+import { ProductType } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { ProductBody } from "../../contracts/product/product.body";
 
