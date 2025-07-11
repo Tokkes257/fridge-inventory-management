@@ -1,8 +1,8 @@
-import { UserUpdateBody } from "../../../contracts/user.update.body";
+import { UserUpdateBody } from "../../../contracts/user/user.update.body";
 import { NotFoundException } from "@nestjs/common";
 import { prisma } from "../../../lib/prisma";
 import bcrypt from "bcryptjs";
-import { UserView } from "../../../contracts/user.view";
+import { UserView } from "../../../contracts/user/user.view";
 import { plainToInstance } from "class-transformer";
 
 export const update = async (id: string, body: UserUpdateBody): Promise<UserView> => {

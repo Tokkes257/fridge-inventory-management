@@ -1,6 +1,6 @@
 import { UnauthorizedException } from "@nestjs/common";
-import { AccessTokenView } from "../../../contracts/accessToken.view";
-import { LoginBody } from "../../../contracts/login.body";
+import { AccessTokenView } from "../../../contracts/auth/accessToken.view";
+import { LoginBody } from "../../../contracts/auth/login.body";
 import * as jwt from "jsonwebtoken";
 import config from "../../../config.json";
 import { prisma } from "../../../lib/prisma";

@@ -1,6 +1,6 @@
 import { plainToInstance } from "class-transformer";
-import { UserBody } from "../../../contracts/user.body";
-import { UserView } from "../../../contracts/user.view";
+import { UserBody } from "../../../contracts/user/user.body";
+import { UserView } from "../../../contracts/user/user.view";
 import { prisma } from "../../../lib/prisma"
 import bcrypt from "bcryptjs";
 

@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
-import { LoginBody } from "../../contracts/login.body";
+import { LoginBody } from "../../contracts/auth/login.body";
 import { createToken } from "../users/handlers/login.handler";
-import { AccessTokenView } from "../../contracts/accessToken.view";
+import { AccessTokenView } from "../../contracts/auth/accessToken.view";
 
 @Controller("auth")
 export class AuthController {
