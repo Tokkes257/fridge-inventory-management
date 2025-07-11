@@ -276,7 +276,7 @@ describe("Integration tests", () => {
             products = await prisma.product.findMany();
             const colaIdNew = products.find(p => p.name === "Cola")!.id;
 
-            const { body: deleteResponse } = await request(app.getHttpServer())
+            await request(app.getHttpServer())
                 .delete(`/api/products/${colaIdNew}`)
                 .set("x-auth", token)
                 .send({
@@ -295,7 +295,7 @@ describe("Integration tests", () => {
 
 
             // Delete all products from fridge 1
-            const { body: deleteAllResponse } = await request(app.getHttpServer())
+            await request(app.getHttpServer())
                 .delete(`/api/products/fridge/1/user/${userId}`)
                 .set("x-auth", token)
                 .send()
@@ -322,7 +322,7 @@ describe("Integration tests", () => {
 
 
             // Delete all products from all fridges for user 1
-            const { body: deleteAllUserResponse } = await request(app.getHttpServer())
+            await request(app.getHttpServer())
                 .delete(`/api/products/user/${userId}`)
                 .set("x-auth", token)
                 .send()
