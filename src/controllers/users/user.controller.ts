@@ -4,12 +4,12 @@ import { get } from "./handlers/get.handler";
 import { update } from "./handlers/update.handler";
 import { deleteUser } from "./handlers/delete.handler";
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, UseGuards } from "@nestjs/common";
-import { UserBody } from "../../contracts/user.body";
-import { SearchQuery } from "../../contracts/search.query";
-import { UserView } from "../../contracts/user.view";
+import { UserBody } from "../../contracts/user/user.body";
+import { SearchQuery } from "../../contracts/common/search.query";
+import { UserView } from "../../contracts/user/user.view";
 import { JwtAuthGuard } from "../../guards/jwt-auth.guard";
 import { ApiOperation, ApiResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
-import { UserUpdateBody } from "../../contracts/user.update.body";
+import { UserUpdateBody } from "../../contracts/user/user.update.body";
 
 @ApiTags("users")
 @Controller("users")

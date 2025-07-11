@@ -27,7 +27,7 @@ const userFixtures = [
 	},
 ];
 
-describe("Handler tests", () => {
+describe("User handler tests", () => {
 	describe("User Tests", () => {
 		beforeEach(() => {
 			console.log("beforeEach");

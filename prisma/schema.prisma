@@ -17,35 +17,22 @@ model User {
   updatedAt DateTime @updatedAt
 
   @@map("users")
-  Product Product[]
   Recipe Recipe[]
+  ProductFridge ProductFridge[]
 }
 
 model Product {
   id          String   @id @default(uuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  ingredientId String
-  ingredient  Ingredient @relation(fields: [ingredientId], references: [id])
+  name        String
+  type        ProductType
   size        Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("products")
-  @@unique([userId, ingredientId])
+  @@unique(name: "name_type_size", fields: [name, type, size])
   ProductFridge  ProductFridge[]
-}
-
-model Ingredient {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  type        ProductType
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("ingredients")
-  Product         Product[]
-  RecipeIngredient RecipeIngredient[]
+  RecipeProduct RecipeProduct[]
 }
 
 model Fridge {
@@ -69,28 +56,30 @@ model Recipe {
   updatedAt   DateTime @updatedAt
 
   @@map("recipes")
-  @@unique([userId, name])
-  RecipeIngredient RecipeIngredient[]
+  @@unique(name: "userId_name", fields: [userId, name])
+  RecipeProduct RecipeProduct[]
 }
 
-model RecipeIngredient {
+model RecipeProduct {
   id           String   @id @default(uuid())
   recipeId     String
   recipe       Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
-  ingredientId String
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade) // Cascading here is not really necessary since products will never be deleted from the database
   quantity     Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  @@map("recipe_ingredients")
-  @@unique([recipeId, ingredientId])
+  @@map("recipe_products")
+  @@unique(name: "recipeId_productId", fields: [recipeId, productId])
 }
 
 model ProductFridge {
   id        String   @id @default(uuid())
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   fridgeId  String
   fridge    Fridge   @relation(fields: [fridgeId], references: [id], onDelete: Cascade)
   quantity  Int
@@ -98,7 +87,7 @@ model ProductFridge {
   updatedAt DateTime @updatedAt
 
   @@map("product_fridges")
-  @@unique([productId, fridgeId])
+  @@unique(name: "productId_fridgeId_userId", fields: [productId, fridgeId, userId])
 }
 
 enum ProductType {

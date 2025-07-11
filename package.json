@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "build": "tsc",
     "build:clean": "rm -rf build && pnpm run build",
@@ -13,7 +16,8 @@
     "db:generate": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma generate",
 		"db:push": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma db push",
 		"db:migrate": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma migrate dev",
-		"db:studio": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma studio"
+		"db:studio": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma studio",
+    "db:seed": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
