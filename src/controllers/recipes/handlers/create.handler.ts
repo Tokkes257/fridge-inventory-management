@@ -2,8 +2,9 @@ import { plainToInstance } from "class-transformer";
 import { prisma } from "../../../lib/prisma"
 import { NotAcceptableException } from "@nestjs/common";
 import { RecipeBody } from "../../../contracts/recipe/recipe.body";
+import { RecipeView } from "../../../contracts/recipe/recipe.view";
 
-export const create = async (body: RecipeBody): Promise<RecipeBody> => {
+export const create = async (body: RecipeBody): Promise<RecipeView> => {
 
 	// check that the user exists in the DB
 	const user = await prisma.user.findUnique({
@@ -62,5 +63,11 @@ export const create = async (body: RecipeBody): Promise<RecipeBody> => {
 		}));
 	}
 
-	return plainToInstance(RecipeBody, body);
+	return plainToInstance(RecipeView, {
+		id: recipe.id,
+		name: recipe.name,
+		description: recipe.description,
+		userId: recipe.userId,
+		products: body.products || [],
+	});
 };

@@ -11,6 +11,7 @@ import { ApiOperation, ApiResponse, ApiSecurity, ApiTags } from "@nestjs/swagger
 import { RecipeBody } from "../../contracts/recipe/recipe.body";
 import { RecipeUpdateBody } from "../../contracts/recipe/recipe.update.body";
 import { RecipeMissingProductView } from "../../contracts/recipe/recipe.missing.product.view";
+import { RecipeView } from "../../contracts/recipe/recipe.view";
 
 @ApiTags("recipes")
 @Controller("recipes")
@@ -20,7 +21,7 @@ export class RecipeController {
     @HttpCode(HttpStatus.CREATED)
     @ApiOperation({ summary: "Create a new recipe" })
     @ApiResponse({ status: 201, description: "Recipe created successfully" })
-    async create(@Body() body: RecipeBody): Promise<RecipeBody> {
+    async create(@Body() body: RecipeBody): Promise<RecipeView> {
         return create(body);
     }
 
@@ -29,7 +30,7 @@ export class RecipeController {
     @ApiSecurity("x-auth")
     @ApiOperation({ summary: "Get all recipes" })
     @ApiResponse({ status: 200, description: "Recipes retrieved successfully" })
-    async getList(@Query() query: SearchQuery): Promise<RecipeBody[]> {
+    async getList(@Query() query: SearchQuery): Promise<RecipeView[]> {
         return getList(query.search);
     }
 
@@ -38,7 +39,7 @@ export class RecipeController {
     @ApiSecurity("x-auth")
     @ApiOperation({ summary: "Get a recipe by ID" })
     @ApiResponse({ status: 200, description: "Recipe retrieved successfully" })
-    async get(@Param("id") id: string): Promise<RecipeBody> {
+    async get(@Param("id") id: string): Promise<RecipeView> {
         return get(id);
     }
 
@@ -56,7 +57,7 @@ export class RecipeController {
     @ApiSecurity("x-auth")
     @ApiOperation({ summary: "Update a recipe by ID" })
     @ApiResponse({ status: 200, description: "Recipe updated successfully" })
-    async update(@Param("id") id: string, @Body() body: RecipeUpdateBody): Promise<RecipeBody> {
+    async update(@Param("id") id: string, @Body() body: RecipeUpdateBody): Promise<RecipeView> {
         return update(id, body);
     }
 

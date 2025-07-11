@@ -1,8 +1,9 @@
 import { plainToInstance } from "class-transformer";
 import { prisma } from "../../../lib/prisma";
 import { RecipeBody } from "../../../contracts/recipe/recipe.body";
+import { RecipeView } from "../../../contracts/recipe/recipe.view";
 
-export const getList = async (search?: string): Promise<RecipeBody[]> => {
+export const getList = async (search?: string): Promise<RecipeView[]> => {
     const where = search
 		? {
             OR: [
@@ -27,5 +28,5 @@ export const getList = async (search?: string): Promise<RecipeBody[]> => {
         orderBy: { createdAt: "desc" },
     });
 
-    return recipes.map(recipe => plainToInstance(RecipeBody, recipe));
+    return recipes.map(recipe => plainToInstance(RecipeView, recipe));
 };

@@ -2,8 +2,9 @@ import { NotFoundException } from "@nestjs/common";
 import { prisma } from "../../../lib/prisma";
 import { plainToInstance } from "class-transformer";
 import { RecipeBody } from "../../../contracts/recipe/recipe.body";
+import { RecipeView } from "../../../contracts/recipe/recipe.view";
 
-export const get = async (id: string): Promise<RecipeBody> => {
+export const get = async (id: string): Promise<RecipeView> => {
 	const recipe = await prisma.recipe.findUnique({
 		where: { id },
 	});
@@ -24,5 +25,5 @@ export const get = async (id: string): Promise<RecipeBody> => {
 		quantity: rp.quantity,
 	}));
 
-	return plainToInstance(RecipeBody, { ...recipe, products });
+	return plainToInstance(RecipeView, { ...recipe, products });
 };

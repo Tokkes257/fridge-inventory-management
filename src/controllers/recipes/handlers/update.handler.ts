@@ -3,8 +3,9 @@ import { prisma } from "../../../lib/prisma";
 import { plainToInstance } from "class-transformer";
 import { RecipeUpdateBody } from "../../../contracts/recipe/recipe.update.body";
 import { RecipeBody } from "../../../contracts/recipe/recipe.body";
+import { RecipeView } from "../../../contracts/recipe/recipe.view";
 
-export const update = async (id: string, body: RecipeUpdateBody): Promise<RecipeBody> => {
+export const update = async (id: string, body: RecipeUpdateBody): Promise<RecipeView> => {
 	const recipe = await prisma.recipe.findUnique({
 		where: { id },
 	});
@@ -43,5 +44,5 @@ export const update = async (id: string, body: RecipeUpdateBody): Promise<Recipe
 		}));
 	}
 
-	return plainToInstance(RecipeBody, { ...updatedRecipe, products: body.products || [] });
+	return plainToInstance(RecipeView, { ...updatedRecipe, products: body.products || [] });
 };
