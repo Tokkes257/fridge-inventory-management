@@ -4,7 +4,7 @@ import { get } from "./handlers/get.handler";
 import { update } from "./handlers/update.handler";
 import { deleteRecipe } from "./handlers/delete.handler";
 import { getMissingProducts } from "./handlers/getMissingProducts.handler";
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, NotFoundException, Param, Patch, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { SearchQuery } from "../../contracts/common/search.query";
 import { JwtAuthGuard } from "../../guards/jwt-auth.guard";
 import { ApiOperation, ApiResponse, ApiSecurity, ApiTags } from "@nestjs/swagger";
@@ -12,6 +12,7 @@ import { RecipeBody } from "../../contracts/recipe/recipe.body";
 import { RecipeUpdateBody } from "../../contracts/recipe/recipe.update.body";
 import { RecipeMissingProductView } from "../../contracts/recipe/recipe.missing.product.view";
 import { RecipeView } from "../../contracts/recipe/recipe.view";
+import { getRecipeSuggestions } from "./handlers/getRecipeSuggestions.handler";
 
 @ApiTags("recipes")
 @Controller("recipes")
@@ -52,6 +53,15 @@ export class RecipeController {
     @ApiResponse({ status: 200, description: "Missing products retrieved successfully" })
     async getMissingProducts(@Param("id") id: string): Promise<RecipeMissingProductView[]> {
         return getMissingProducts(id);
+    }
+
+    @Get("recipe-suggestions/:id")
+    @UseGuards(JwtAuthGuard)
+    @ApiSecurity("x-auth")
+    @ApiOperation({ summary: "Get recipe suggestions based on fridge contents" })
+    @ApiResponse({ status: 200, description: "Recipe suggestions retrieved successfully" })
+    async getRecipeSuggestions(@Param("id") id: string): Promise<RecipeBody[]> {
+        return await getRecipeSuggestions(id);
     }
 
     @Patch(":id")

@@ -14,9 +14,9 @@
     "test": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' NODE_OPTIONS='--import=tsx' mocha ./src/tests/**/*.test.ts",
     "test-old": "mocha -r ts-node/register ./src/tests/**/*.test.ts",
     "db:generate": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma generate",
-		"db:push": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma db push",
-		"db:migrate": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma migrate dev",
-		"db:studio": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma studio",
+    "db:push": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma db push",
+    "db:migrate": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma migrate dev",
+    "db:studio": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' prisma studio",
     "db:seed": "DATABASE_URL='postgresql://root:root@localhost:5432/fridge-management?schema=public' ts-node prisma/seed.ts"
   },
   "keywords": [],
@@ -24,17 +24,20 @@
   "license": "ISC",
   "packageManager": "pnpm@10.12.4",
   "dependencies": {
+    "@ai-sdk/anthropic": "^1.2.12",
     "@nestjs/common": "^11.1.3",
     "@nestjs/core": "^11.1.3",
     "@nestjs/platform-express": "^11.1.3",
     "@nestjs/swagger": "^11.2.0",
     "@prisma/client": "^6.11.1",
+    "ai": "^4.3.17",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "prisma": "^6.11.1",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.7",
